@@ -1,29 +1,15 @@
 #include <iostream>
 #include <conio.h>
 #include <fstream>
-#include <string>
-#include <time.h>
-#include "utils.h"
 #include "livres.h"
-
-
+#include "utils.h"
 
 
 using namespace std;
-extern const string NOM_FICHIER_LIVRES = "X:\\Programmation 2\\fichiers\\livres.bin";
 
-//const int MAX_CHAR = 125;
-//
-//struct Livre_s
-//{
-//	int NumeroUniqueDeLivre;
-//	char TitreDuLivre[MAX_CHAR];
-//	char AuteurDuLivre[MAX_CHAR];
-//	bool Prete;
-//};
 
-Livre_s RechercherLivre(int Numero);
-void MettreAJourLivre(int Numero, Livre_s ClientModifie);
+extern const string NOM_FICHIER_LIVRES = ".\\fichiers\\livres.bin"; // Peut être utilisé dans d'autres modules
+//extern const string NOM_FICHIER_LIVRES = "X:\Programmation 2\Projet Final\ProjetFinal_FINAL\livres.bin"; // TEST
 
 int NombreDeLivresTotaux()
 {
@@ -105,48 +91,34 @@ Livre_s RechercherLivre(int Numero)
 	return LivreALire;
 }
 
-void AfficherLivre(int Numero)
+
+void MettreAJourLivre(int Numero, Livre_s LivreModifie)
 {
-	string Choix;
-	cout << "\n\n\nEntrez le numero du livre a afficher: ";
-	getline(cin, Choix);
-	int NumeroLivreAAfficher = stoi(Choix);
-	Livre_s LivreAAfficher = RechercherLivre(NumeroLivreAAfficher);
-
 	int Total = NombreDeLivresTotaux();
-
-	if (NumeroLivreAAfficher <= Total)
+	if (Numero >= Total)
 	{
-		cout << "Titre du livre: " << LivreAAfficher.TitreDuLivre << "    Auteur: " << LivreAAfficher.AuteurDuLivre << "	Numero du livre: " << LivreAAfficher.NumeroUniqueDeLivre << "    Prete ";
-		cout << LivreAAfficher.Prete << endl;
+		cout << "\nLe numero du livre n'existe pas" << endl;
+		cout << "Appuyez sur une touche pour continuer" << endl;
 		_getch();
 	}
 	else
 	{
-		cout << "Numero de livre invalide" << endl;
-		cout << "Appuyez sur une touche pour continuer" << endl;
-		_getch();
-	}
-	cout << "Appuyez sur une touche pour continuer" << endl;
-	_getch();
-}
 
-void MettreAJourLivre(int Numero, Livre_s LivreModifie) // À TESTER
-{
 	
-	fstream FluxFichier;
-	FluxFichier.open(NOM_FICHIER_LIVRES, ios::in | ios::out | ios::binary);
+		fstream FluxFichier;
+		FluxFichier.open(NOM_FICHIER_LIVRES, ios::in | ios::out | ios::binary);
 
-	if (FluxFichier.fail()) {
-		cout << "Impossible d'ouvrir le fichier!";
-		exit(EXIT_FAILURE);
+		if (FluxFichier.fail()) {
+			cout << "Impossible d'ouvrir le fichier!";
+			exit(EXIT_FAILURE);
+		}
+
+		FluxFichier.seekp(Numero * sizeof(Livre_s), ios::beg);
+		FluxFichier.write((char*)&LivreModifie, sizeof(Livre_s));
+
+
+		FluxFichier.close();
 	}
-
-	FluxFichier.seekp(Numero * sizeof(Livre_s), ios::beg);
-	FluxFichier.write((char*)&LivreModifie, sizeof(Livre_s));
-
-
-	FluxFichier.close();
 }
 
 void ListeDesLivresPretes() // A tester
@@ -201,3 +173,30 @@ void AfficherLesLivres() // TEST pour voir tous les livres
 
 	_getch();
 }
+
+//void AfficherLivre(int Numero) //		INUTILE DANS LE PROGRAMME
+//{
+//
+//	string Choix;
+//	cout << "\n\n\nEntrez le numero du livre a afficher: ";
+//	getline(cin, Choix);
+//	int NumeroLivreAAfficher = stoi(Choix);
+//	Livre_s LivreAAfficher = RechercherLivre(NumeroLivreAAfficher);
+//
+//	int Total = NombreDeLivresTotaux();
+//
+//	if (NumeroLivreAAfficher <= Total)
+//	{
+//		cout << "Titre du livre: " << LivreAAfficher.TitreDuLivre << "    Auteur: " << LivreAAfficher.AuteurDuLivre << "	Numero du livre: " << LivreAAfficher.NumeroUniqueDeLivre << "    Prete ";
+//		cout << LivreAAfficher.Prete << endl;
+//		_getch();
+//	}
+//	else
+//	{
+//		cout << "Numero de livre invalide" << endl;
+//		cout << "Appuyez sur une touche pour continuer" << endl;
+//		_getch();
+//	}
+//	cout << "Appuyez sur une touche pour continuer" << endl;
+//	_getch();
+//}

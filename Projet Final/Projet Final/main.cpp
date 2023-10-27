@@ -3,23 +3,18 @@
 #include "livres.h"
 #include "clients.h"
 #include "utils.h"
-#include <string>
-#include <time.h>
+#include "CONSTANTES.h"
+
 
 using namespace std;
-extern const string NOM_FICHIER_CLIENTS;
-extern const string NOM_FICHIER_LIVRES;
 
 
-//Un tableau passé en parametre à un fonction est toujours passé par reference
-
-// A terminer: Si aucun livre nest prete
 
 
 void main(void)
 {
 	char Choix;
-	EffacerLesFichiers();
+	//EffacerLesFichiers(); // TEST
 	bool meta = false;
 	while (!meta)
 	{
@@ -29,7 +24,7 @@ void main(void)
 		cout << "=======================================" << endl;
 		cout << "Bibliotheque MRC de St-Clin-de-banlieue" << endl;
 		cout << "=======================================" << endl;
-		cout << "0. TESTJOURS" << endl;
+
 		cout << "\t1. Ajouter un livre" << endl;
 		cout << "\t2. Ajouter un client" << endl;
 		cout << "\t3. Afficher le dossier d'un client" << endl;
@@ -37,8 +32,8 @@ void main(void)
 		cout << "\t5. Retourner un livre" << endl;
 		cout << "\t6. Liste des livres pretes" << endl;
 		cout << "\t7. Liste des clients en retard" << endl;
-		cout << "\t8. Quitter/Afficher Les Clients" << endl; // test
-		cout << "\t9. Afficher les livres" << endl; // test
+		cout << "\t8. Quitter" << endl; 
+		//cout << "\t9. Afficher les livres" << endl; // test
 		
 		
 		Choix = _getch();
@@ -53,7 +48,7 @@ void main(void)
 
 		switch (Choix)
 		{
-		case '0':TestJours();
+		case '0':
 			break;
 		case '1':NouveauLivre();
 			break;
@@ -63,7 +58,6 @@ void main(void)
 
 		case '3':
 			cout << "\n\n\nEntrez le numero du client a afficher: ";
-			cin.ignore(80, '\n');
 			cin >> Choix4;
 			
 			AfficherDossierClient(Choix4);
@@ -100,13 +94,14 @@ void main(void)
 			break;
 
 		case '8':
-			AfficherLesClients(); // TEST
-			_getch();
-			//meta == true;
+			meta = true;
+			//AfficherLesClients(); // TEST
+			//_getch();
+			
 			break;
 
-		case '9': AfficherLesLivres(); // TEST
-			break;
+		//case '9': AfficherLesLivres(); // TEST
+		//	break;
 		
 		}
 	}

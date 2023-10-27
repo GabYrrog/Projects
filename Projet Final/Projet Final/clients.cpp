@@ -1,43 +1,16 @@
 #include <iostream>
 #include <fstream>
 #include <conio.h>
-#include <string>
-#include <time.h>
 #include "clients.h"
 #include "livres.h"
-#include "utils.h"
+
 
 using namespace std;
 
 
-struct LivresPretes_s // Peut-être à mettre dans le CPP
-{
-	int NumeroDeLivre;//Correspond à la position du livre dans le fichier
-	Date_s DateEtHeureDeLocation;
-	Date_s DateEtHeureDeRetourPrevu;
-};
 
-
-
-struct Client_s
-{
-	int NumeroUniqueDeClient; //Correspond à la position du client dans le fichier
-	char NomCompletDeClient[MAX_CHAR];
-	char NumeroDeTelephone[MAX_CHAR];
-	char AdresseDuClient[MAX_CHAR];
-	int NombreDeLivresPretes;
-	Date_s DateDinscription;
-	LivresPretes_s LivresPretes[3];
-};
-
-
-extern const string NOM_FICHIER_CLIENTS = "X:\\Programmation 2\\fichiers\\clients.bin";
-extern const string NOM_FICHIER_LIVRES; // POUR LA FONCTION QUI ECRASE LES FICHIERS
-
-Client_s RechercherDossierClient(int IDClient);
-
-void MettreAJourClient(int IDClient, Client_s ClientModifie);
-
+extern const string NOM_FICHIER_CLIENTS = ".\\fichiers\\clients.bin"; // Peut être utilisé dans d'autres modules
+//extern const string NOM_FICHIER_CLIENTS = "X:\Programmation 2\Projet Final\ProjetFinal_FINAL\clients.bin"; // TEST
 
 int NombreDeClientsTotaux()
 {
@@ -92,22 +65,12 @@ void NouveauClient()
 	StringEnTabChar(TelephoneCLient, NouveauClient.NumeroDeTelephone);
 	StringEnTabChar(AdresseClient, NouveauClient.AdresseDuClient);
 
-	//struct LivresPretes_s // Peut-être à mettre dans le CPP
-	//{
-	//	int NumeroDeLivre;//Correspond à la position du livre dans le fichier
-	//	Date_s DateEtHeureDeLocation;
-	//	Date_s DateEtHeureDeRetourPrevu;
-	//};
-
 	LivresPretes_s TableauVide[3] = { {},{},{} };
-
 
 	for (int i = 0; i < 3; i++)
 	{
 		NouveauClient.LivresPretes[i] = TableauVide[i];
 	}
-	
-
 
 	//Écrire le NouveauClient à la suite des autres dans Clients.bin
 	fstream FluxFichier;
@@ -124,6 +87,7 @@ void NouveauClient()
 	cout << "Appuyez sur une touche pour continuer" << endl;
 	_getch();
 }
+
 
 void AfficherLesClients() // TEST pour voir tous les clients
 {
@@ -156,58 +120,70 @@ void AfficherLesClients() // TEST pour voir tous les clients
 	FluxFichier.close();
 }
 
-void EffacerLesFichiers() // TEST 
-{
-	
-	fstream FluxFichier;
-	FluxFichier.open(NOM_FICHIER_CLIENTS, ios::out | ios::binary);
 
-	if (FluxFichier.fail()) {
-		cout << "Impossible d'ouvrir le fichier!";
-		exit(EXIT_FAILURE);
-	}
-
-	FluxFichier.close();
-	//Maintenant, les livres
-	FluxFichier.open(NOM_FICHIER_LIVRES, ios::out | ios::binary);
-
-	if (FluxFichier.fail()) {
-		cout << "Impossible d'ouvrir le fichier!";
-		exit(EXIT_FAILURE);
-	}
-
-	FluxFichier.close();
-}
 
 Client_s RechercherDossierClient(int IDClient)
 {
-	Client_s ClientALire;
-	fstream FluxFichier;
-	FluxFichier.open(NOM_FICHIER_CLIENTS, ios::in | ios::binary);
-
-	if (FluxFichier.fail()) {
-		cout << "Impossible d'ouvrir le fichier!";
-		exit(EXIT_FAILURE);
-	}
-
-	FluxFichier.seekg(IDClient * sizeof(Client_s), ios::beg);
-	FluxFichier.read((char*)&ClientALire, sizeof(Client_s)); 
 	
-	FluxFichier.close();
-	return ClientALire;
+		Client_s ClientALire;
+		fstream FluxFichier;
+		FluxFichier.open(NOM_FICHIER_CLIENTS, ios::in | ios::binary);
+
+		if (FluxFichier.fail()) {
+			cout << "Impossible d'ouvrir le fichier!";
+			exit(EXIT_FAILURE);
+		}
+
+		FluxFichier.seekg(IDClient * sizeof(Client_s), ios::beg);
+		FluxFichier.read((char*)&ClientALire, sizeof(Client_s)); 
+	
+		FluxFichier.close();
+		//cout << "\n" << ClientALire.NumeroUniqueDeClient << endl; // TEST
+		return ClientALire;
+	
 }
 
-void AfficherDossierClient(int Numero) // A DEBUGER
+void AfficherDossierClient(int Numero) 
 {
-	Client_s ClientAAfficher = RechercherDossierClient(Numero);
+	 
+		Client_s ClientAAfficher = RechercherDossierClient(Numero);
 	
-	int Total = NombreDeClientsTotaux();
+		int Total = NombreDeClientsTotaux();
 
-	if (Numero <= Total)
-	{
-		cout << "Nom du Client: " << ClientAAfficher.NomCompletDeClient << "    Telephone: " << ClientAAfficher.NumeroDeTelephone << "	Adresse: " << ClientAAfficher.AdresseDuClient << "    ID ";
-		cout << ClientAAfficher.NumeroUniqueDeClient << "    Date dinscription: " << ClientAAfficher.DateDinscription.Annee << "/" << ClientAAfficher.DateDinscription.Mois << "/" << ClientAAfficher.DateDinscription.Jour << endl;
-		_getch();
+		if (Numero < Total)
+		{
+			cout << "Nom du Client: " << ClientAAfficher.NomCompletDeClient << "    Telephone: " << ClientAAfficher.NumeroDeTelephone << "	Adresse: " << ClientAAfficher.AdresseDuClient << "    ID ";
+			cout << ClientAAfficher.NumeroUniqueDeClient << "    Date dinscription: " << ClientAAfficher.DateDinscription.Annee << "/" << ClientAAfficher.DateDinscription.Mois << "/" << ClientAAfficher.DateDinscription.Jour << "   Nombre de livres pretes : " << ClientAAfficher.NombreDeLivresPretes << endl;
+			_getch();
+		}
+		else
+		{
+			cout << "Numero de client invalide" << endl;
+			cout << "Appuyez sur une touche pour continuer" << endl;
+			_getch();
+		}
+	
+}
+
+void MettreAJourClient(int IDClient, Client_s ClientModifie)
+{
+	int Total = NombreDeClientsTotaux();
+	if (IDClient < Total)
+	{ 
+	
+		fstream FluxFichier;
+		FluxFichier.open(NOM_FICHIER_CLIENTS, ios::in |ios::out | ios::binary);
+
+		if (FluxFichier.fail()) {
+			cout << "Impossible d'ouvrir le fichier!";
+			exit(EXIT_FAILURE);
+		}
+
+		FluxFichier.seekp(IDClient * sizeof(Client_s), ios::beg);
+		FluxFichier.write((char*)&ClientModifie, sizeof(Client_s));
+	
+
+		FluxFichier.close();
 	}
 	else
 	{
@@ -215,27 +191,10 @@ void AfficherDossierClient(int Numero) // A DEBUGER
 		cout << "Appuyez sur une touche pour continuer" << endl;
 		_getch();
 	}
+
 }
 
-void MettreAJourClient(int IDClient, Client_s ClientModifie) // À TESTER
-{
-	
-	fstream FluxFichier;
-	FluxFichier.open(NOM_FICHIER_CLIENTS, ios::in |ios::out | ios::binary);
-
-	if (FluxFichier.fail()) {
-		cout << "Impossible d'ouvrir le fichier!";
-		exit(EXIT_FAILURE);
-	}
-
-	FluxFichier.seekp(IDClient * sizeof(Client_s), ios::beg);
-	FluxFichier.write((char*)&ClientModifie, sizeof(Client_s));
-	
-
-	FluxFichier.close();
-}
-
-void ListeDesClientsEnRetard()// A TESTER
+void ListeDesClientsEnRetard()
 {
 	Client_s ClientALire;
 	fstream FluxFichier;
@@ -275,115 +234,135 @@ void ListeDesClientsEnRetard()// A TESTER
 
 void Location(int NumeroDeClient, int NumeroDeLivre) 
 {
-	Client_s ClientQuiLoue = RechercherDossierClient(NumeroDeClient);
-	Livre_s LivreLoue = RechercherLivre(NumeroDeLivre);
-	Date_s DateAujourdhui = Aujourdhui();
-	int annee = DateAujourdhui.Annee;
-	int mois = DateAujourdhui.Mois;
-	int jour = DateAujourdhui.Jour;
-	
-	if (ClientQuiLoue.NombreDeLivresPretes == 3)
+	int TotalClient = NombreDeClientsTotaux();
+	int TotalLivre = NombreDeLivresTotaux();
+
+	if (NumeroDeClient >= TotalClient)
 	{
-		cout << "\nMaximum de location(3) atteint, impossible d'effectuer la location" << endl;
+		cout << "Entrez des numeros de clients valides" << endl;
 		cout << "Appuyez sur une touche pour continuer" << endl;
 		_getch();
 	}
-	else
+	else if (NumeroDeLivre >= TotalLivre)
 	{
-		if (LivreLoue.Prete == true)
+		cout << "Entrez des numeros de livres valides" << endl;
+		cout << "Appuyez sur une touche pour continuer" << endl;
+		_getch();
+	}
+	else 
+	{ 
+		Client_s ClientQuiLoue = RechercherDossierClient(NumeroDeClient);
+		Livre_s LivreLoue = RechercherLivre(NumeroDeLivre);
+		Date_s DateAujourdhui = Aujourdhui();
+		int annee = DateAujourdhui.Annee;
+		int mois = DateAujourdhui.Mois;
+		int jour = DateAujourdhui.Jour;
+	
+		if (ClientQuiLoue.NombreDeLivresPretes == 3)
 		{
-			cout << "\nImpossible, ce livre est deja prete..." << endl;
+			cout << "\nMaximum de location(3) atteint, impossible d'effectuer la location" << endl;
+			cout << "Appuyez sur une touche pour continuer" << endl;
 			_getch();
 		}
 		else
 		{
-			ClientQuiLoue.LivresPretes[ClientQuiLoue.NombreDeLivresPretes].DateEtHeureDeLocation.Annee = annee;
-			ClientQuiLoue.LivresPretes[ClientQuiLoue.NombreDeLivresPretes].DateEtHeureDeLocation.Mois = mois;
-			ClientQuiLoue.LivresPretes[ClientQuiLoue.NombreDeLivresPretes].DateEtHeureDeLocation.Jour = jour;
-			ClientQuiLoue.LivresPretes[ClientQuiLoue.NombreDeLivresPretes].DateEtHeureDeRetourPrevu = AjouterJours(15, Aujourdhui());
-			ClientQuiLoue.LivresPretes[ClientQuiLoue.NombreDeLivresPretes].NumeroDeLivre = LivreLoue.NumeroUniqueDeLivre;
-			ClientQuiLoue.NombreDeLivresPretes += 1;
+			if (LivreLoue.Prete == true)
+			{
+				cout << "\nImpossible, ce livre est deja prete..." << endl;
+				_getch();
+			}
+			else
+			{
+				ClientQuiLoue.LivresPretes[ClientQuiLoue.NombreDeLivresPretes].DateEtHeureDeLocation.Annee = annee;
+				ClientQuiLoue.LivresPretes[ClientQuiLoue.NombreDeLivresPretes].DateEtHeureDeLocation.Mois = mois;
+				ClientQuiLoue.LivresPretes[ClientQuiLoue.NombreDeLivresPretes].DateEtHeureDeLocation.Jour = jour;
+				ClientQuiLoue.LivresPretes[ClientQuiLoue.NombreDeLivresPretes].DateEtHeureDeRetourPrevu = AjouterJours(15, Aujourdhui());
+				ClientQuiLoue.LivresPretes[ClientQuiLoue.NombreDeLivresPretes].NumeroDeLivre = LivreLoue.NumeroUniqueDeLivre;
+				ClientQuiLoue.NombreDeLivresPretes += 1;
 
-			MettreAJourClient(NumeroDeClient, ClientQuiLoue);
+				MettreAJourClient(NumeroDeClient, ClientQuiLoue);
 
-			LivreLoue.Prete = true;
+				LivreLoue.Prete = true;
 			
 
-			MettreAJourLivre(NumeroDeLivre, LivreLoue);
-			cout << "\nLocation effectuee avec succes" << endl;
-			cout << "Appuyez sur une touche pour continuer" << endl;
-			_getch();
+				MettreAJourLivre(NumeroDeLivre, LivreLoue);
+				cout << "\nLocation effectuee avec succes" << endl;
+				cout << "Appuyez sur une touche pour continuer" << endl;
+				_getch();
+			}
 		}
 	}
 }
 
 void Retour(int Numero) // A tester
 {
-	Date_s DateDeRetour = Aujourdhui();
-	int DifferenceEntreRetourEffectifEtLocation;
-	int DifferenceEntreRetourPrevuEtLocation;
-	int DifferenceEntreRetourEffectifEtRetourPrevu;
-	
-	LivresPretes_s TableauVide[3];
-	Livre_s LivreLoue;
-	Client_s Client = RechercherDossierClient(Numero);
+	int Total = NombreDeClientsTotaux();
 
-	for (int i = 0; i < Client.NombreDeLivresPretes; i++)
-	{
-		DifferenceEntreRetourEffectifEtLocation = NombreJours(Client.LivresPretes[i].DateEtHeureDeLocation, DateDeRetour);
-		DifferenceEntreRetourPrevuEtLocation = NombreJours(Client.LivresPretes[i].DateEtHeureDeLocation, Client.LivresPretes[i].DateEtHeureDeRetourPrevu);
-		DifferenceEntreRetourEffectifEtRetourPrevu = NombreJours(Client.LivresPretes[i].DateEtHeureDeRetourPrevu, DateDeRetour);
-		if (DifferenceEntreRetourEffectifEtLocation > DifferenceEntreRetourPrevuEtLocation)
-		{
-			cout << "\nVous avez un retard de : " << DifferenceEntreRetourEffectifEtRetourPrevu << " jours." << endl;
-			_getch();
-		}
-	}
-
-	if (RechercherDossierClient(Numero).NumeroUniqueDeClient != Numero)
+	if (Numero >= Total)
 	{
 		cout << "\Le numero du client n'existe pas" << endl;
-		_getch();
-	}
-	else
-	{
-		for (int i = 0; i < Client.NombreDeLivresPretes; i++)
-		{
-			LivreLoue = RechercherLivre(Client.LivresPretes[i].NumeroDeLivre);
-			LivreLoue.Prete = false;
-			MettreAJourLivre(LivreLoue.NumeroUniqueDeLivre, LivreLoue);
-			Client.LivresPretes[i] = TableauVide[i];
-			Client.NombreDeLivresPretes = 0;
-			MettreAJourClient(Client.NumeroUniqueDeClient, Client);
-		}
-		cout << "\nLe retour s'est effectue avec succes" << endl;
 		cout << "Appuyez sur une touche pour continuer" << endl;
 		_getch();
 	}
+	else
+	{ 
+		Date_s DateDeRetour = Aujourdhui();
+		int DifferenceEntreRetourEffectifEtLocation;
+		int DifferenceEntreRetourPrevuEtLocation;
+		int DifferenceEntreRetourEffectifEtRetourPrevu;
+	
+		LivresPretes_s TableauVide[3];
+		Livre_s LivreLoue;
+		Client_s Client = RechercherDossierClient(Numero);
+
+		for (int i = 0; i < Client.NombreDeLivresPretes; i++)
+		{
+			DifferenceEntreRetourEffectifEtLocation = NombreJours(Client.LivresPretes[i].DateEtHeureDeLocation, DateDeRetour);
+			DifferenceEntreRetourPrevuEtLocation = NombreJours(Client.LivresPretes[i].DateEtHeureDeLocation, Client.LivresPretes[i].DateEtHeureDeRetourPrevu);
+			DifferenceEntreRetourEffectifEtRetourPrevu = NombreJours(Client.LivresPretes[i].DateEtHeureDeRetourPrevu, DateDeRetour);
+			if (DifferenceEntreRetourEffectifEtLocation > DifferenceEntreRetourPrevuEtLocation)
+			{
+				cout << "\nVous avez un retard de : " << DifferenceEntreRetourEffectifEtRetourPrevu << " jours." << endl;
+				_getch();
+			}
+		}
+
+	
+			for (int i = 0; i < Client.NombreDeLivresPretes; i++)
+			{
+				LivreLoue = RechercherLivre(Client.LivresPretes[i].NumeroDeLivre);
+				LivreLoue.Prete = false;
+				MettreAJourLivre(LivreLoue.NumeroUniqueDeLivre, LivreLoue);
+				Client.LivresPretes[i] = TableauVide[i];
+				Client.NombreDeLivresPretes = 0;
+				MettreAJourClient(Client.NumeroUniqueDeClient, Client);
+			}
+			cout << "\nLe retour s'est effectue avec succes" << endl;
+			cout << "Appuyez sur une touche pour continuer" << endl;
+			_getch();
+	}
 }
 
-void TestJours() // TEST
+void EffacerLesFichiers() // Pour pouvoir rouler le programme sans faire des copiers-collers manuels avec les fichiers BIN
 {
-	Date_s CeJour = Aujourdhui();
 
-	Date_s Demain;
+	fstream FluxFichier;
+	FluxFichier.open(NOM_FICHIER_CLIENTS, ios::out | ios::binary);
 
-	Date_s AnneeProchaine;
+	if (FluxFichier.fail()) {
+		cout << "Impossible d'ouvrir le fichier!";
+		exit(EXIT_FAILURE);
+	}
 
-	AnneeProchaine.Annee = CeJour.Annee + 1;
-	AnneeProchaine.Mois = CeJour.Mois;
-	AnneeProchaine.Jour = CeJour.Jour;
+	FluxFichier.close();
+	//Maintenant, les livres
+	FluxFichier.open(NOM_FICHIER_LIVRES, ios::out | ios::binary);
 
-	Demain.Annee = CeJour.Annee;
-	Demain.Mois = CeJour.Mois;
-	Demain.Jour = CeJour.Jour + 1;
+	if (FluxFichier.fail()) {
+		cout << "Impossible d'ouvrir le fichier!";
+		exit(EXIT_FAILURE);
+	}
 
-	int Difference = NombreJours(CeJour, Demain);
-	int DifferenceAnnee = NombreJours(CeJour, AnneeProchaine);
-
-	cout << Difference << endl;
-	cout << DifferenceAnnee << endl;
-	_getch();
+	FluxFichier.close();
 }
-
 
