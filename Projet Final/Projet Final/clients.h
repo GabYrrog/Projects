@@ -23,16 +23,16 @@ struct Client_s
 	char AdresseDuClient[MAX_CHAR_CLIENTS];
 	int NombreDeLivresPretes;
 	Date_s DateDinscription;
-	LivresPretes_s LivresPretes[3];
+	LivresPretes_s LivresPretes[3]; 
 };
 
 
-Client_s RechercherDossierClient(int IDClient);
-void MettreAJourClient(int IDClient, Client_s ClientModifie);
-int NombreDeClientsTotaux();
+Client_s RechercherDossierClient(int IDClient);// A conserver ici en raison du besoin d'avoir la struct définie
+void MettreAJourClient(int IDClient, Client_s ClientModifie); // A conserver ici en raison du besoin d'avoir la struct définie
+
 void NouveauClient();
-void AfficherLesClients();
-void EffacerLesFichiers();
+void AfficherLesClients(); // TEST
+void EffacerLesFichiers(); // TEST
 void AfficherDossierClient(int Numero);
 void ListeDesClientsEnRetard();
 void Location(int NumeroDeLivre, int NumeroDeClient);

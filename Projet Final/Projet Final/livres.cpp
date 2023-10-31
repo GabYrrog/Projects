@@ -11,7 +11,10 @@ using namespace std;
 extern const string NOM_FICHIER_LIVRES = ".\\fichiers\\livres.bin"; // Peut être utilisé dans d'autres modules
 //extern const string NOM_FICHIER_LIVRES = "X:\Programmation 2\Projet Final\ProjetFinal_FINAL\livres.bin"; // TEST
 
-int NombreDeLivresTotaux()
+
+static void AfficherLivre(int Numero);
+
+ int NombreDeLivresTotaux()
 {
 	fstream FluxFichier;
 	FluxFichier.open(NOM_FICHIER_LIVRES, ios::in | ios::binary);

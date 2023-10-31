@@ -1,3 +1,5 @@
-﻿  main.cpp
+﻿  livres.cpp
+  main.cpp
 X:\Programmation 2\Projet Final\ProjetFinal_FINAL\Projet Final\Projet Final\main.cpp(15,1): warning C4326: le type de retour de 'main' doit être 'int' au lieu de 'void'
+  Génération de code en cours...
   Projet Final.vcxproj -> X:\Programmation 2\Projet Final\ProjetFinal_FINAL\Projet Final\x64\Debug\Projet Final.exe

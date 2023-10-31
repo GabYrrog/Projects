@@ -14,13 +14,13 @@ struct Livre_s
 	bool Prete;
 };
 
-Livre_s RechercherLivre(int Numero);
-void MettreAJourLivre(int Numero, Livre_s ClientModifie);
-int NombreDeLivresTotaux();
+Livre_s RechercherLivre(int Numero); // A conserver ici en raison du besoin d'avoir la struct définie
+void MettreAJourLivre(int Numero, Livre_s ClientModifie); // A conserver ici en raison du besoin d'avoir la struct définie
+int NombreDeLivresTotaux(); // Besoin dans le client.cpp mais pas dans le main donc on le laisse ici
 void NouveauLivre();
-void AfficherLivre(int Numero);
+//void AfficherLivre(int Numero); Inutile dans le programme 
 void ListeDesLivresPretes();
-void AfficherLesLivres();
+void AfficherLesLivres(); // TEST
 
 #endif
 

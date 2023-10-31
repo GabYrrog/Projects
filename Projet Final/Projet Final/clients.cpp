@@ -12,7 +12,10 @@ using namespace std;
 extern const string NOM_FICHIER_CLIENTS = ".\\fichiers\\clients.bin"; // Peut être utilisé dans d'autres modules
 //extern const string NOM_FICHIER_CLIENTS = "X:\Programmation 2\Projet Final\ProjetFinal_FINAL\clients.bin"; // TEST
 
-int NombreDeClientsTotaux()
+
+static int NombreDeClientsTotaux(); // Pas besoin dans le main donc on le met le plus privé possible
+
+static int NombreDeClientsTotaux()
 {
 	fstream FluxFichier;
 	FluxFichier.open(NOM_FICHIER_CLIENTS, ios::in | ios::binary);
