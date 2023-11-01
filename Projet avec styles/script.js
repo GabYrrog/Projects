@@ -32,4 +32,40 @@ function scrollToTop() {
 window.addEventListener('scroll', checkScrollPosition);
 scrollTopBtn.addEventListener('click', scrollToTop);
 
-// 
+// JS pour pouvoir resize le font
+const decreaseBtn = document.getElementById('decreaseFont');
+const resetBtn = document.getElementById('resetFont');
+const increaseBtn = document.getElementById('increaseFont');
+const body = document.body; // or another container element if needed
+
+// Define default font size
+const defaultFontSize = window.getComputedStyle(body).fontSize;
+
+function adjustFontSize(scaleFactor) {
+    const currentSize = parseFloat(window.getComputedStyle(body).fontSize);
+    body.style.fontSize = `${currentSize * scaleFactor}px`;
+}
+
+// Event listeners
+decreaseBtn.addEventListener('click', () => {
+    adjustFontSize(0.9); // decrease by 10%
+});
+
+resetBtn.addEventListener('click', () => {
+    body.style.fontSize = defaultFontSize;
+});
+
+increaseBtn.addEventListener('click', () => {
+    adjustFontSize(1.1); // increase by 10%
+});
+
+// Fonction pour avoir l'heure
+setInterval(clockFunc, 1000);
+
+function clockFunc() {
+  let d = new Date();
+  document.querySelector(".clock").innerHTML=
+  d.getHours() + ":" +
+  d.getMinutes() + ":" +
+  d.getSeconds();
+}
