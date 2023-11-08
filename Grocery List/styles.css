@@ -1,0 +1,319 @@
+html, body{
+    margin:0px;
+    padding:0px;
+    height: 100%;
+}
+
+html {
+    background-image: url("Veggies.jpg");
+    background-position: center; /* Center the image */
+    background-repeat: no-repeat; /* Do not repeat the image */
+    background-size: cover; /* Resize the background image to cover the entire container */
+}
+
+body{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Schoolbell', arial, serif; 
+    font-weight: bolder;
+    font-size: 1.3rem;
+}
+
+.Container{
+    width: 90%; /* Prefer percentages for responsive width */
+    max-width: 600px; /* Maximum width the container can grow */
+    min-width: 220px;
+    height: 90%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: rgb(245, 245, 220, 0.7);
+    border-radius:10px ;
+    overflow: auto;
+}
+
+.ListHead{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    width:90%;
+}
+
+.Item{
+    width:80%;
+    background-color: #c2fbd7;
+    margin:10px;
+}
+
+::placeholder{
+    font-family: 'Schoolbell', arial, serif; 
+    font-size:1.2rem;
+    padding:3px;
+}
+
+.Submit{
+    float:right;
+    margin-left:20px;
+    width:20%;
+}
+
+.GroceryList{
+    display: flex;
+    flex-direction: column; 
+    justify-content: flex-start; 
+    align-items: center; 
+    gap: 2px; 
+    height: 100%; 
+}
+
+.GroceryList p {
+    margin:3px;
+}
+
+
+
+/* CSS */
+.Submit {
+  background-color: #c2fbd7;
+  border-radius: 100px;
+  box-shadow: rgba(44, 187, 99, .2) 0 -25px 18px -14px inset,rgba(44, 187, 99, .15) 0 1px 2px,rgba(44, 187, 99, .15) 0 2px 4px,rgba(44, 187, 99, .15) 0 4px 8px,rgba(44, 187, 99, .15) 0 8px 16px,rgba(44, 187, 99, .15) 0 16px 32px;
+  color: green;
+  cursor: pointer;
+  display: inline-block;
+  font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
+  padding: 7px 20px;
+  text-align: center;
+  text-decoration: none;
+  transition: all 250ms;
+  border: 0;
+  font-size: 16px;
+  user-select: none;
+  touch-action: manipulation;
+}
+
+.Submit:hover {
+  box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
+  transform: scale(1.05) rotate(-1deg);
+}
+
+
+
+.item-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    padding: 1px 0; /* Add padding for better spacing */
+    flex-wrap: wrap;
+}
+.modify-btn{
+    font-size:0.8rem;
+    background-color: #c5c2fb;
+    border-radius: 100px;
+    box-shadow: rgba(0, 0, 255, .2) 0 -25px 18px -14px inset,
+            rgba(0, 0, 255, .15) 0 1px 2px,
+            rgba(0, 0, 255, .15) 0 2px 4px,
+            rgba(0, 0, 255, .15) 0 4px 8px,
+            rgba(0, 0, 255, .15) 0 8px 16px,
+            rgba(0, 0, 255, .15) 0 16px 32px;
+
+    color: rgb(23, 0, 128);
+    cursor: pointer;
+    display: inline-block;
+    font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 250ms;
+    border: 0;
+    margin:5px;
+    user-select: none;
+    touch-action: manipulation;
+}
+.remove-btn{
+    font-size:0.8rem;
+    background-color: #fbc2c2;
+    border-radius: 100px;
+    box-shadow: rgba(255, 0, 0, .2) 0 -25px 18px -14px inset,
+            rgba(255, 0, 0, .15) 0 1px 2px,
+            rgba(255, 0, 0, .15) 0 2px 4px,
+            rgba(255, 0, 0, .15) 0 4px 8px,
+            rgba(255, 0, 0, .15) 0 8px 16px,
+            rgba(255, 0, 0, .15) 0 16px 32px;
+
+    color: rgb(128, 0, 0);
+    cursor: pointer;
+    display: inline-block;
+    font-family: CerebriSans-Regular,-apple-system,system-ui,Roboto,sans-serif;
+    padding: 7px 20px;
+    text-align: center;
+    text-decoration: none;
+    transition: all 250ms;
+    border: 0;
+    margin:5px;
+    user-select: none;
+    touch-action: manipulation;
+}
+
+.item-text {
+    flex-grow: 1; /* Allows the text to fill the space */
+    margin-right: 10px; /* Ensures a margin between the text and the buttons */
+}
+
+.modify-btn, .remove-btn {
+    width: 80px; /* Fixed width for buttons */
+    /* ... other styles ... */
+}
+
+.modify-btn:hover {
+    box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
+    transform: scale(1.05) rotate(-1deg);
+  }
+
+
+  .remove-btn:hover {
+    box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
+    transform: scale(1.05) rotate(-1deg);
+  }
+
+  .GroceryList p{
+    margin-right:60px;
+  }
+@media (max-width: 768px) {
+    .GroceryList {
+        
+    }
+} 
+
+@media (max-width: 520px) {
+    body {
+        font-size: 0.8rem;
+    }
+    ::placeholder{
+        font-size: 0.8rem;
+    }
+    .Submit{
+        font-size: 0.8rem;
+    }
+    .modify-btn{
+        font-size:0.8rem;
+    }
+    .remove-btn{
+        font-size: 0.8rem;
+    }
+    p.item-text{
+        margin-right:5px;
+    }
+}
+@media (max-width: 480px) {
+    body {
+        font-size: 0.8rem;
+    }
+    ::placeholder{
+        font-size: 0.8rem;
+    }
+    .Submit{
+        font-size: 0.8rem;
+    }
+    .modify-btn{
+        font-size:0.8rem;
+    }
+    .remove-btn{
+        font-size: 0.8rem;
+    }
+    p.item-text{
+        margin-right:3px;
+    }
+}
+@media (max-width: 400px){
+    .Submit{
+        padding: 3px 5px;
+    }
+    .modify-btn{
+        padding: 3px 5px;
+    }
+    .remove-btn{
+        padding: 3px 5px;
+    }
+    .modify-btn, .remove-btn {
+        width: 55px; /* Fixed width for buttons */
+        /* ... other styles ... */
+    }
+    p.item-text{
+        margin:3px;
+    }
+    body{
+        font-size: 0.7rem;
+    }
+
+    ::placeholder{
+        font-size: 0.7rem;
+    }
+    .Submit{
+        font-size: 0.7rem;
+    }
+    .modify-btn{
+        font-size:0.7rem;
+    }
+    .remove-btn{
+        font-size: 0.7rem;
+    }
+}
+
+
+
+@media (max-width: 390px){
+    .Submit{
+        padding: 3px 5px;
+    }
+    .modify-btn{
+        padding: 3px 5px;
+    }
+    .remove-btn{
+        padding: 3px 5px;
+    }
+    .modify-btn, .remove-btn {
+        width: 50px; /* Fixed width for buttons */
+        /* ... other styles ... */
+    }
+    body{
+        font-size: 0.7rem;
+    }
+
+    ::placeholder{
+        font-size: 0.7rem;
+    }
+    .Submit{
+        font-size: 0.7rem;
+    }
+    .modify-btn{
+        font-size:0.7rem;
+    }
+    .remove-btn{
+        font-size: 0.7rem;
+    }
+}
+
+@media (max-width: 300px) {
+    body{
+        font-size: 0.6rem;
+    }
+
+    ::placeholder{
+        font-size: 0.6rem;
+    }
+    .Submit{
+        font-size: 0.6rem;
+    }
+    .modify-btn{
+        font-size:0.6rem;
+    }
+    .remove-btn{
+        font-size: 0.6rem;
+    }
+  
+}
