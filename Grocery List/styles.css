@@ -170,24 +170,32 @@ body{
 }
 
 .modify-btn:hover {
-    box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
-    transform: scale(1.05) rotate(-1deg);
+    box-shadow: rgba(0, 123, 255, .35) 0 -25px 18px -14px inset,
+            rgba(0, 123, 255, .25) 0 1px 2px,
+            rgba(0, 123, 255, .25) 0 2px 4px,
+            rgba(0, 123, 255, .25) 0 4px 8px,
+            rgba(0, 123, 255, .25) 0 8px 16px,
+            rgba(0, 123, 255, .25) 0 16px 32px;
+transform: scale(1.05) rotate(-1deg);
+
   }
 
 
   .remove-btn:hover {
-    box-shadow: rgba(44,187,99,.35) 0 -25px 18px -14px inset,rgba(44,187,99,.25) 0 1px 2px,rgba(44,187,99,.25) 0 2px 4px,rgba(44,187,99,.25) 0 4px 8px,rgba(44,187,99,.25) 0 8px 16px,rgba(44,187,99,.25) 0 16px 32px;
-    transform: scale(1.05) rotate(-1deg);
+    box-shadow: rgba(255, 0, 0, .35) 0 -25px 18px -14px inset,
+    rgba(255, 0, 0, .25) 0 1px 2px,
+    rgba(255, 0, 0, .25) 0 2px 4px,
+    rgba(255, 0, 0, .25) 0 4px 8px,
+    rgba(255, 0, 0, .25) 0 8px 16px,
+    rgba(255, 0, 0, .25) 0 16px 32px;
+transform: scale(1.05) rotate(-1deg);
+
   }
 
   .GroceryList p{
     margin-right:60px;
   }
-@media (max-width: 768px) {
-    .GroceryList {
-        
-    }
-} 
+
 
 @media (max-width: 520px) {
     body {
