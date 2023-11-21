@@ -1,0 +1,102 @@
+import java.util.ArrayList;
+//ArrayList can be used to see each value before adding them
+class Solution {
+    public int romanToInt(String s) {
+        ArrayList<Integer> nums = new ArrayList<>();
+        for (int i = 0; i < s.length(); i++) {
+            if (i < s.length() - 1) {
+                char current = s.charAt(i);
+                char next = s.charAt(i + 1);
+
+                if (current == 'I' && next == 'V') {
+                    nums.add(4);
+                    i++;
+                    continue;
+                } else if (current == 'I' && next == 'X') {
+                    nums.add(9);
+                    i++;
+                    continue;
+                } else if (current == 'X' && next == 'L') {
+                    nums.add(40);
+                    i++;
+                    continue;
+                } else if (current == 'X' && next == 'C') {
+                    nums.add(90);
+                    i++;
+                    continue;
+                } else if (current == 'C' && next == 'D') {
+                    nums.add(400);
+                    i++;
+                    continue;
+                } else if (current == 'C' && next == 'M') {
+                    nums.add(900);
+                    i++;
+                    continue;
+                }
+            }
+
+            switch (s.charAt(i)) {
+                case 'I':
+                    nums.add(1);
+                    break;
+                case 'V':
+                    nums.add(5);
+                    break;
+                case 'X':
+                    nums.add(10);
+                    break;
+                case 'L':
+                    nums.add(50);
+                    break;
+                case 'C':
+                    nums.add(100);
+                    break;
+                case 'D':
+                    nums.add(500);
+                    break;
+                case 'M':
+                    nums.add(1000);
+                    break;
+            }
+        }
+
+        int sum = 0;
+        for (int num : nums) {
+            sum += num;
+        }
+        return sum;
+    }
+}
+
+
+But the more efficient algo is : 
+
+import java.util.Map;
+
+class Solution {
+    public int romanToInt(String s) {
+        Map<Character, Integer> romanValues = Map.of(
+            'I', 1,
+            'V', 5,
+            'X', 10,
+            'L', 50,
+            'C', 100,
+            'D', 500,
+            'M', 1000
+        );
+
+        int sum = 0;
+        for (int i = 0; i < s.length(); i++) {
+            int value = romanValues.get(s.charAt(i));
+            
+            // If the next character is larger, subtract this value; otherwise, add it
+            if (i < s.length() - 1 && value < romanValues.get(s.charAt(i + 1))) {
+                sum -= value;
+            } else {
+                sum += value;
+            }
+        }
+        return sum;
+    }
+}
+
