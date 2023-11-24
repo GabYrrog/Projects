@@ -1,0 +1,24 @@
+Java
+class Solution {
+    public List<List<Integer>> generate(int numRows) {
+        List<List<Integer>> myList = new ArrayList<>();
+        List<Integer> template = new ArrayList<>();
+        
+        for (int i = 0; i < numRows; i++) {
+            List<Integer> row = new ArrayList<>();
+            for (int j = 0; j <= i; j++) {
+                if (j == 0 || j == i) {
+                    row.add(1);
+                } else {
+                    int sum = template.get(j - 1) + template.get(j);
+                    row.add(sum);
+                }
+            }
+            myList.add(row);
+            template = row;
+        }
+        
+        return myList;
+    }
+}
+
