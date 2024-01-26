@@ -8,8 +8,8 @@ export default class Missile {
         this.node = document.createElement("div");
         this.parent = document.querySelector("body");
         this.node.classList.add("missile");
-        this.node.style.bottom = -100 + "px";
-        this.positionY = -100;
+        this.node.style.bottom = 50 + "px";
+        this.positionY = 50;
         this.x = window.innerWidth/2; 
         this.node.style.left = this.x + "px";
         this.speedY = 100;

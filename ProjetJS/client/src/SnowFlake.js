@@ -14,7 +14,7 @@ export default class SnowFlake {
         this.rotateSpeed = 5;
         this.angle = 0;
         this.parent.append(this.node);
-        reduceFuel(50);
+        reduceFuel(15);
     }
 
 
