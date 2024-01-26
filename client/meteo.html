@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Météo</title>
+        <link rel="stylesheet" href="/client/css/global.css">
+        <script src="/client/dist/meteo.js"></script>
+        <link rel="icon" href="/client/img/favicon.png" type="image/png" />
+    </head>
+    <body>
+        <a href="/client/index.html" id="quit-btn">Quit</a>
+
+   
+
+    
+        <div id="comet"></div>
+    
+
+   
+        <div id="laserContainer"></div>
+
+        <div id="attackButtons">
+            <button id="attack1" class="attack-btn">Attack 1 - Space</button>
+            <button id="attack2" class="attack-btn">Attack 2 - Enter</button>
+            <button id="attack3" class="attack-btn">Quebec Special - Click</button>
+            
+        </div>
+
+        <div id="Arch-says">
+            
+        </div>
+
+        <div id="toggle-rain">
+            <button id="rain-btn">Toggle rain</button>
+        </div>
+
+        <div id="temperature-settings">
+            <input type="number" id="temperature-input" placeholder="Enter temperature">
+            <button id="submit-temperature">Submit Temperature</button>
+        </div>
+        
+        <div class="spacecraft-container-evil">
+            <!-- <img id="spacecraft-evil" class="spacecraft"> -->
+        </div>
+
+        
+
+        <div class="spacecraft-container">
+            <!-- <img id="spacecraft" class="spacecraft"> -->
+        </div>
+
+        <div class="lifebar-container">
+            <div class="life-bar" id="lifeBar1"></div>
+            <div class="life-bar" id="lifeBar1-background"></div>
+            <div class="life-bar" id="lifeBar2"></div>
+            <div class="life-bar" id="lifeBar2-background"></div>
+            <div class="fuel" id="FuelBar"></div>
+            <div class="fuel" id="FuelBar-background"></div>
+            
+        </div>
+    </body>
+</html>

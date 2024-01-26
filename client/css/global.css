@@ -1,0 +1,621 @@
+* {
+    margin:0;
+    padding:0;
+    box-sizing: border-box; 
+}
+
+
+html, body {
+    position: relative;
+    width: 100vw;  
+    height: 100vh;  
+    background-image: url('/client/img/cyberspace.jpg');
+    background-size: cover;
+    overflow: hidden;
+}
+#spacecraft{
+    position:absolute; 
+	top:5px;
+    left:40%;
+	width:100px;
+	height:100px;
+	background-image:url('/client/img/Spacecraft.png');
+    background-size: cover;
+    transition: left 0.5s ease;
+    box-shadow: 0 0 30px blue, 
+    0 0 100px 10px green; 
+}
+#spacecraft-evil{
+    position:absolute; 
+	top:5px;
+    left:40%;
+	width:100px;
+	height:100px;
+	background-image:url('/client/img/evil-spacecraft.png');
+    background-size: cover;
+    transition: left 0.5s ease;
+    box-shadow: 0 0 30px purple, 
+    0 0 100px 10px red; 
+}
+
+
+.spacecraft-container {
+    position: absolute; 
+    bottom: 80px;         
+    left: 50%;         
+    transform: translateX(-50%); 
+    height: 100px;     
+    width: 200px;      
+}
+.spacecraft-container-evil {
+    position: absolute; 
+    top: 20px;         
+    left: 50%;         
+    transform: translateX(-50%); 
+    height: 100px;     
+    width: 200px;      
+}
+
+#attackButtons {
+    position: fixed;
+    bottom: 10px;  
+    left: 50%;      
+    transform: translateX(-50%); 
+    text-align: center;
+}
+
+.attack-btn{
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: #fff; 
+    background-color: #ff0000;
+    border: none; 
+    border-radius: 5px; 
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.7), 
+                 0 0 40px rgba(255, 0, 0, 0.7), 
+                 0 0 80px rgba(255, 0, 0, 0.7);
+    transition: all 0.3s ease-in-out; 
+}
+
+#attack3{
+    display: none;
+    background-color:rgba(0, 149, 255,0.8) ;
+    text-shadow: 0 0 10px rgba(0, 149, 255, 0.7);
+    box-shadow: 0 0 20px rgba(0, 149, 255, 0.7), 
+                 0 0 40px rgba(0, 149, 255, 0.7), 
+                 0 0 80px rgba(0, 149, 255, 0.7);
+}
+
+#attack3:hover {
+   
+    cursor:pointer;
+}
+
+.attack-btn:hover {
+    box-shadow: 0 0 30px rgba(255, 0, 0, 0.9), 
+                 0 0 60px rgba(255, 0, 0, 0.9),
+                 0 0 90px rgba(255, 0, 0, 0.9); 
+}
+
+.life-bar {
+    position: absolute;
+    left: 100px;
+    bottom : 0;
+    width: 20px; 
+    height: 200px; 
+    cursor: pointer;
+}
+/* Le contenant blanc des lifebars */
+.life-bar::before { 
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 200px; 
+    border: 5px solid white; 
+    box-sizing: border-box; 
+}
+
+
+
+#lifeBar1-background {
+
+    bottom: 60%;
+    background-color: aqua;
+    opacity: 0;
+}
+
+#lifeBar2-background {
+    bottom:5%; 
+    background-color: aqua;
+    opacity: 0;
+}
+
+#lifeBar1 {
+    bottom: 60%;
+    background-color: green; 
+    rotate: 180deg;
+}
+
+#lifeBar2 {
+    bottom:5%;  
+    background-color: green;  
+    rotate: 180deg;
+}
+
+
+.fuel {
+    position: absolute;
+    left: 150px;
+    bottom : 5px;
+    width: 20px; 
+    height: 200px; 
+    cursor: pointer;
+}
+/* Le contenant blanc */
+.fuel::before { 
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%; 
+    height: 200px; 
+    border: 5px solid white; 
+    box-sizing: border-box; 
+}
+
+
+#FuelBar-background {
+    bottom:5%; 
+    background-color: aqua;
+    opacity: 0;
+}
+
+#FuelBar {
+    bottom: 5%;
+    background-color: rgb(200, 99, 10); 
+    rotate: 180deg;
+}
+
+
+.numeric-life1{
+    position: absolute;
+    top:50%;
+    left:4%;
+    color: antiquewhite;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+.numeric-life2{
+    position: absolute;
+    top:50%;
+    left:4%;
+    color: antiquewhite;
+    font-size: 50px;
+    font-weight: bold;
+}
+
+
+.laser {
+    position: absolute;
+    bottom: 0;
+    height: 5px; 
+    background-color: red; 
+    opacity: 0.7; 
+}
+
+@keyframes shake {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    25% { transform: translate(-50%, -50%) rotate(5deg); }
+    50% { transform: translate(-50%, -50%) rotate(-5deg); }
+    75% { transform: translate(-50%, -50%) rotate(5deg); }
+    100% { transform: translate(-50%, -50%) rotate(0deg); }
+}
+
+#comet {
+    position: absolute;
+    rotate: 300deg;
+    top: 20%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 300px; 
+    height: 300px; 
+    background-image: url('/client/img/comet.png'); 
+    background-size: cover;
+    z-index: 10;
+    opacity: 0; 
+}
+
+@keyframes flash {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0; }
+}
+
+#msgBox {
+    font-size: 70px;
+    background-color: red;
+    color: green;
+    text-align: center;
+    position: fixed;
+    left:25%;
+    width: 50%;
+    top:-150px;
+
+}
+
+#password-form {
+    position: absolute; 
+    bottom: 10%;         
+    left: 40%;        
+    height: 10%;     
+    width: 40%;   
+}
+#password {
+    height: 50px;
+    font-size: larger;
+    text-align: center;
+}
+
+#submit-btn{
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bolder;
+    cursor: pointer;
+    color: #fff; 
+    background-color: #10c729;
+    border: none; 
+    border-radius: 5px; 
+    text-shadow: 0 0 10px rgba(43, 255, 0, 0.7);
+    box-shadow: 0 0 20px rgba(43, 255, 0, 0.7), 
+                 0 0 40px rgba(43, 255, 0, 0.7), 
+                 0 0 80px rgba(43, 255, 0, 0.7);
+    transition: all 0.3s ease-in-out; 
+}
+
+#error-message{
+    display: none;
+    width: fit-content;
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    color: #fff; 
+    background-color: #ff0000;
+    border: none; 
+    border-radius: 5px; 
+    text-shadow: 0 0 10px rgba(255, 0, 0, 0.7);
+    box-shadow: 0 0 20px rgba(255, 0, 0, 0.7), 
+                 0 0 40px rgba(255, 0, 0, 0.7), 
+                 0 0 80px rgba(255, 0, 0, 0.7);
+    transition: all 0.3s ease-in-out; 
+}
+
+#quit-btn{
+    position: absolute;
+    top: 10px;
+    margin: 15px;
+   
+    padding: 10px 20px;
+    font-size: 16px;
+    font-weight: bolder;
+    font-weight: bolder;
+    cursor: pointer;
+    color: #fff; 
+    background-color: #c710c4;
+    border: none; 
+    border-radius: 5px; 
+    text-shadow: 0 0 10px rgba(176, 3, 173, 0.7);
+    box-shadow: 0 0 20px rgba(176, 3, 173, 0.7), 
+                 0 0 40px rgba(176, 3, 173, 0.7), 
+                 0 0 80px rgba(176, 3, 173, 0.7);
+    transition: all 0.3s ease-in-out; 
+}
+
+.intro{
+    text-align: center;
+    position: fixed;
+    left:35%;
+    width: 30%;
+    top:-200px;
+    font-size: x-large;
+    font-weight: bold;
+    color: antiquewhite;
+    cursor:pointer;
+}
+.citiesContainer{
+    display: flex;
+    position: fixed;
+    left:16%;
+    top:35%;
+    width: 1140px;
+    height: 188px;
+    justify-content: space-around;
+
+}
+
+.montreal{
+    background-image: url('/client/img/montreal.jpg');
+    background-size: contain;
+    height: 100%;
+    width: 25%; 
+    cursor: pointer;
+
+    box-shadow: 0 0 20px rgba(255, 234, 0, 0.7), 
+                 0 0 40px rgba(255, 234, 0, 0.7), 
+                 0 0 80px rgba(255, 234, 0, 0.7);
+
+    animation: wiggle  0.8s ease infinite;
+}
+
+.montreal:hover{
+    box-shadow: 0 0 30px rgba(255, 234, 0, 0.7), 
+                 0 0 50px rgba(255, 234, 0, 0.7), 
+                 0 0 90px rgba(255, 234, 0, 0.7);
+}
+
+.newYork{
+    background-image: url('/client/img/new-york.jpg'); 
+    background-size: contain;
+    height: 100%;
+    width: 25%; 
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255, 234, 0, 0.7), 
+    0 0 40px rgba(255, 234, 0, 0.7), 
+    0 0 80px rgba(255, 234, 0, 0.7);
+    animation: wiggle  0.8s ease infinite;
+}
+.newYork:hover{
+    box-shadow: 0 0 30px rgba(255, 234, 0, 0.7), 
+                 0 0 50px rgba(255, 234, 0, 0.7), 
+                 0 0 90px rgba(255, 234, 0, 0.7);
+}
+
+.paris{
+    background-image: url('/client/img/paris.jpg'); 
+    background-size: contain;
+    height: 100%;
+    width: 24%; 
+    cursor: pointer;
+    box-shadow: 0 0 20px rgba(255, 234, 0, 0.7), 
+    0 0 40px rgba(255, 234, 0, 0.7), 
+    0 0 80px rgba(255, 234, 0, 0.7);
+    animation: wiggle 0.8s ease infinite;
+}
+.paris:hover{
+    box-shadow: 0 0 30px rgba(255, 234, 0, 0.7), 
+                 0 0 50px rgba(255, 234, 0, 0.7), 
+                 0 0 90px rgba(255, 234, 0, 0.7);
+}
+.cityChoice{
+    text-align: center;
+    position: fixed;
+    left:35%;
+    width: 30%;
+    top:100px;
+    font-size: 30px;
+    font-weight: bold;
+    color: antiquewhite;
+    
+}
+
+@keyframes wiggle {
+    0% {
+        transform: rotate(0deg);
+    }
+    10% {
+        transform: rotate(0.3deg);
+    }
+    20% {
+        transform: rotate(0.5deg);
+    }
+    30% {
+        transform: rotate(0.3deg);
+    }
+    40% {
+        transform: rotate(0deg);
+    }
+    50% {
+        transform: rotate(-0.3deg);
+    }
+    60% {
+        transform: rotate(-0.5deg);
+    }
+    70% {
+        transform: rotate(-0.3deg);
+    }
+    80% {
+        transform: rotate(-0.2deg);
+    }
+    90% {
+        transform: rotate(-0.1deg);
+    }
+    100% {
+        transform: rotate(0deg);
+    }
+}
+
+.login{
+
+    text-align: center;
+    position: fixed;
+    left:33%;
+    width: 30%;
+    top:300px;
+    font-size: 30px;
+    font-weight: bold;
+    color: antiquewhite;
+    
+}
+
+#Arch-Evil{
+    position:absolute; 
+	width:200px;
+	height:200px;
+	background-image:url('/client/img/Arch-Evil.png');
+    background-size: cover;
+    box-shadow: 0 0 50px rgba(255, 0, 0, 0.9), 
+    0 0 80px rgba(255, 0, 0, 0.9),
+    0 0 110px rgba(255, 0, 0, 0.9); 
+}
+
+#shadow {
+    position: fixed; 
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh; 
+    background-color: rgba(0, 0, 0, 0.5); 
+    pointer-events: none;
+}
+
+
+#temperature-settings{
+    position: absolute;
+    bottom:30px;
+    right:30px;
+    
+}
+
+#temperature-input{
+    height: 30px;
+}
+
+#submit-temperature{
+    height: 30px;
+    width: 150px;
+    font-size: 16px;
+    color: #fff; 
+    background-color: #009dff;
+    border: none; 
+    cursor: pointer;
+    border-radius: 5px; 
+    text-shadow: 0 0 10px rgba(0, 149, 255, 0.7);
+    box-shadow: 0 0 20px rgba(0, 149, 255, 0.7), 
+                 0 0 40px rgba(0, 149, 255, 0.7), 
+                 0 0 80px rgba(0, 149, 255, 0.7);
+}
+
+.iceGlow{
+    box-shadow: 0 0 40px rgba(0, 149, 255, 0.7), 
+    0 0 60px rgba(0, 149, 255, 0.7), 
+    0 0 100px rgba(0, 149, 255, 0.7);
+}
+
+#toggle-rain{
+    position: absolute;
+    bottom:80px;
+    right:30px;
+}
+
+#rain-btn{
+    height: 30px;
+    width: 150px;
+    font-size: 16px;
+    color: #fff; 
+    background-color: #009dff;
+    border: none;
+    cursor: pointer; 
+    border-radius: 5px; 
+    text-shadow: 0 0 10px rgba(0, 149, 255, 0.7);
+    box-shadow: 0 0 20px rgba(0, 149, 255, 0.7), 
+                 0 0 40px rgba(0, 149, 255, 0.7), 
+                 0 0 80px rgba(0, 149, 255, 0.7);
+}
+
+#Arch-says{
+    display: none;
+    height: 50px;
+    width: 500px;
+    font-size: 25px;
+    color: #16de55; 
+    text-align: right;
+    background-color: #1a263890;
+    position: absolute;
+    bottom:200px;
+    right:80px;
+    line-height: 50px;
+
+}
+
+.snow{
+    position: absolute;
+    width:30px;
+    height: 30px;
+    background-image: url("/client/img/snowflake.png");
+    background-size: cover;
+}
+
+.missile{
+    position: absolute;
+    width:30px;
+    height: 100px;
+    background-image: url("/client/img/missile.png");
+    background-size: cover;
+}
+
+.explosion{
+    position: absolute;
+    width:30px;
+    height: 30px;
+    background-image: url("/client/img/explosion.png");
+    background-size: cover;
+}
+
+.laserBeam{
+    position: absolute;
+    width:5px;
+    height: 75vh;
+    
+    box-shadow: 0 0 50px rgba(255, 0, 0, 0.9), 
+    0 0 80px rgba(255, 0, 0, 0.9),
+    0 0 110px rgba(255, 0, 0, 0.9); 
+}
+
+.EvilGun{
+    position: absolute;
+    width:4px;
+    height: 48px;
+    background-color:aliceblue;
+    
+}
+
+.sunny-glow {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    box-shadow: inset 0 0 5px 3px yellow; 
+    pointer-events: none;
+}
+
+.StartMessage{
+
+    text-align: center;
+    position: fixed;
+    
+    font-weight: bold;
+    color: rgba(224, 139, 28, 0.712);
+
+}
+
+.orb{
+    position: absolute;
+    width:60px;
+    height: 60px;
+    background-image: url("/client/img/Lightning-Orb.png");
+    background-size: cover;
+}
+
+.explosionEvil{
+    position: absolute;
+    width:30px;
+    height: 30px;
+    background-image: url("/client/img/explosion.png");
+    background-size: cover;
+}
