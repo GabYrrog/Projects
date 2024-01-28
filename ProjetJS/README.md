@@ -1,5 +1,13 @@
 # CVM Météo
 
+## In terminal, run npm install to install dependencies and then npm start to start the development server
+
+## To navigate the second page, where most of the animations are, just click the green Enter button. Be sure to have selected a city to defend first, as LocalStorage needs this data to adjust some of the test in the second page animations.
+
+
+
+
+
 ## Pré-requis
 
 - Avoir nodejs d'installé sur votre machine. Pour savoir si vous l'avez installé, exécutez dans un terminal:
